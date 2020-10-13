@@ -1,8 +1,8 @@
-import React from 'react';
-import {Header,Logos} from './component/Header';
-import Footer from './component/Footer';
-import './App.css';
-import BasicTextFields from './component/textfield'
+// import React from 'react';
+// import {Header,Logos} from './component/Header';
+// import Footer from './component/Footer';
+// import './App.css';
+// import BasicTextFields from './component/textfield'
 
 
 
@@ -161,17 +161,202 @@ import BasicTextFields from './component/textfield'
 
 
 
-import Child from './component/prac'
+// import Child from './component/prac'
+
+// class App extends React.Component{
+//   render(){
+//     return(
+//       <div>
+//         <h1>Parent Element</h1>
+//         <Child name="Car" price="500$"/>
+//         <Child name="Watch" price="10$"/>
+//       </div> 
+//     )
+//   }
+// }
+// export default App;
+
+
+
+
+
+
+// React Routing and Linking
+
+
+
+// import React from 'react';
+// import AppRouter from './config/route'
+
+// class App extends React.Component{
+//     render(){
+//         return(
+//               <AppRouter/>
+//         )
+//     }
+// }
+// export default App;
+
+
+
+
+
+// React Life Cycle 
+
+// // get data from API and underdstand concept of Component Did Mount
+
+// import React from 'react'
+
+// class App extends React.Component{
+//     constructor(){
+//         super()
+//         this.state={
+//             count:0,
+//             data:[],
+//         }
+//         console.log("Contructor Helllo")
+//     }
+    
+//     static getDerivedStateFromProps(){
+//         console.log("getDerivedStateFromProps")
+//         return{
+//             count:5
+//         }
+
+//     }
+//     componentDidMount(){
+//         fetch('https://jsonplaceholder.typicode.com/todos')
+//         .then(response => response.json())
+//         .then(data=>{
+//             this.setState({
+//                 data:data,
+//             })
+//         })
+//         .catch(err=>console.log(err))
+//         console.log("componentDidMount")
+//     } 
+//     render(){
+//         console.log("data===>" ,this.state.data)
+//         return(
+//             <div>
+//                 <h2>React LifeCycle</h2>
+//                 {this.state.data.map((v,i)=>{
+//                     return <h4 key={i}>{v.title}</h4>
+//                 })}
+//             </div>
+//         )
+//     }
+// }
+// export default App;
+
+
+
+
+
+//underdstand concept of getDeriveStateFromProps
+
+// // understad state in getDerivedStateFromProps
+// import React from 'react'
+
+// class App extends React.Component{
+//     constructor(){
+//         super()
+//         this.state={
+//             count:0,
+//         }
+//         // this.state={
+//         //     value:12
+//         // }
+//         console.log("Contructor Helllo")
+//     }
+    
+//     static getDerivedStateFromProps(props,state){
+//         console.log("getDerivedStateFromProps",state)
+//         return null
+
+//     }
+//     componentDidMount(){
+//         console.log("componentDidMount")
+//     } 
+//     render(){
+//             return(
+//             <div align="center">
+//                 <h2>React LifeCycle</h2>
+//                 <h4>{this.state.count}</h4>
+//                 {/* <h4>{this.state.value}</h4> */}
+//                 <button onClick={()=>this.setState({count:this.state.count+1})}>Increment</button>
+//                 <button  onClick={()=>this.setState({count:this.state.count-1})}>Decrement</button>
+                
+//             </div>
+//         )
+//     }
+// }
+// export default App;
+
+
+
+
+
+
+
+// understad props in getDerivedStateFromProps
+
+// first make child component
+import React from 'react'
+import Child from './component/child'
 
 class App extends React.Component{
-  render(){
-    return(
-      <div>
-        <h1>Parent Element</h1>
-        <Child name="Car" price="500$"/>
-        <Child name="Watch" price="10$"/>
-      </div> 
-    )
-  }
+    constructor(){
+        super()
+        this.state={
+            count:0,
+        }
+        // this.state={
+        //     value:12
+        // }
+        console.log("Contructor Helllo")
+    }
+    
+    static getDerivedStateFromProps(props,state){
+        // console.log("getDerivedStateFromProps",state)
+        return null
+
+    }  // use this in child component
+    componentDidMount(){
+        // console.log("componentDidMount")
+    } 
+    shouldComponentUpdate(){
+        if (this.state.count<5){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    getSnapshotBeforeUpdate(preProps,preState){
+        // console.log("getSnapshotBeforeUpdate" ,preState)
+        return 10
+
+    }
+
+    componentDidUpdate(preProps,preState,snapshot){
+        // console.log("componentDidUpdate",snapshot)
+    }
+
+    // componentWillUnmount(){
+    //     console.log("Component Khalas")
+    // }  //use this in child.js
+    render(){
+            return(
+            <div align="center">
+                <h2>React LifeCycle</h2>
+                {this.state.count < 5 &&<Child count={this.state.count}/>}
+                <button onClick={()=>this.setState({count:this.state.count+1})}>Increment</button>
+                <button  onClick={()=>this.setState({count:this.state.count-1})}>Decrement</button>
+            
+                {/* <h4>{this.state.value}</h4> */}
+            </div>
+        )
+    }
 }
 export default App;
